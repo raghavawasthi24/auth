@@ -1,40 +1,64 @@
-import React from "react";
-
-const dummyUsers = [
-  { id: 1, name: "John Doe", email: "john@example.com", status: "Active" },
-  { id: 2, name: "Jane Smith", email: "jane@example.com", status: "Inactive" },
-  { id: 3, name: "Sam Wilson", email: "sam@example.com", status: "Active" },
-  { id: 4, name: "Chris Evans", email: "chris@example.com", status: "Pending" },
-];
+import React, { useEffect, useState } from "react";
 
 const Dashboard = () => {
-  return (
-    <div className="flex">
-      <div className="flex-1 p-6 bg-gray-100 min-h-screen">
-        <h1 className="text-2xl font-bold mb-6">User Table</h1>
+  const [users, setUsers] = useState([]);
 
-        <div className="bg-white shadow-md rounded-lg overflow-hidden">
-          <table className="w-full text-left border-collapse">
-            <thead className="bg-gray-200">
-              <tr>
-                <th className="p-3">ID</th>
-                <th className="p-3">Name</th>
-                <th className="p-3">Email</th>
-                <th className="p-3">Status</th>
+  useEffect(() => {
+    const storedData = localStorage.getItem("info");
+    if (storedData) {
+      try {
+        const parsedData = JSON.parse(storedData);
+        setUsers(Array.isArray(parsedData) ? parsedData : [parsedData]);
+      } catch (err) {
+        console.error("Error parsing localStorage data:", err);
+      }
+    }
+  }, []);
+
+  return (
+    <div className="flex justify-center p-6 bg-gradient-to-r from-teal-100 to-cyan-100 min-h-screen">
+      <div className="w-full max-w-5xl bg-white rounded-xl shadow-lg p-6">
+        <h1 className="text-3xl font-bold mb-6 text-gray-800 text-center">
+          User Dashboard
+        </h1>
+
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse rounded-lg overflow-hidden">
+            <thead>
+              <tr className="bg-cyan-500 text-white text-left">
+                <th className="p-4 text-sm uppercase tracking-wide">ID</th>
+                <th className="p-4 text-sm uppercase tracking-wide">Name</th>
+                <th className="p-4 text-sm uppercase tracking-wide">Email</th>
+                <th className="p-4 text-sm uppercase tracking-wide">Username</th>
               </tr>
             </thead>
             <tbody>
-              {dummyUsers.map((user) => (
-                <tr
-                  key={user.id}
-                  className="border-b hover:bg-gray-100 transition"
-                >
-                  <td className="p-3">{user.id}</td>
-                  <td className="p-3">{user.name}</td>
-                  <td className="p-3">{user.email}</td>
-                  <td className="p-3">{user.status}</td>
+              {users.length > 0 ? (
+                users.map((user, index) => (
+                  <tr
+                    key={index}
+                    className={`transition-colors duration-200 ${
+                      index % 2 === 0 ? "bg-gray-50" : "bg-white"
+                    } hover:bg-cyan-100`}
+                  >
+                    <td className="p-4 border-b text-gray-700">
+                      {user.id || index + 1}
+                    </td>
+                    <td className="p-4 border-b text-gray-700">{user.name}</td>
+                    <td className="p-4 border-b text-gray-700">{user.email}</td>
+                    <td className="p-4 border-b text-gray-700">{user.name}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan="4"
+                    className="text-center p-6 text-gray-500 italic"
+                  >
+                    No user data available
+                  </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>

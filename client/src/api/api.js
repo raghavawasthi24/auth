@@ -22,6 +22,7 @@ export const LoginAPI = async (data) => {
       // Save JWT token in localStorage for protected routes
       if (result.token) {
         localStorage.setItem("token", result.token);
+        localStorage.setItem("info", JSON.stringify(result.user));
       }
   
       return {

@@ -10,8 +10,6 @@ exports.register = async (req, res) => {
   try {
     const { name, dob, email, password } = req.body;
 
-    console.log(req.body)
-
     const existingUser = await User.findOne({ name });
     if (existingUser) return res.status(400).json({ message: 'User already exists' });
 
@@ -31,8 +29,6 @@ exports.register = async (req, res) => {
     res.status(200).json({ message: 'Registered successfully. Please login.' });
   } catch (err) {
     res.status(500).json({ message: err.message });
-
-    console.log(err.message)
   }
 };
 
@@ -73,7 +69,7 @@ exports.login = async (req, res) => {
       expiresIn: '1h'
     });
 
-    res.status(200).json({ message: 'Login successful', token });
+    res.status(200).json({ message: 'Login successful', token, user });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

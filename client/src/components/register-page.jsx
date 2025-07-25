@@ -30,6 +30,7 @@ const RegisterCard = () => {
     setIsLoading(true);
     const res = await RegisterAPI(formData);
     if(res.success){
+      alert("Registered successfully! Please login")
       navigate("/");
     } else {
       alert(res.error)
