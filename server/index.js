@@ -11,13 +11,13 @@ const app = express();
 // Middleware
 app.use(bodyParser.json());
 
-// CORS Middleware
 app.use(cors({
-  origin: 'https://auth-bice-nu.vercel.app/', // React frontend URL
-  credentials: true
-}));
+    origin: (origin, callback) => {
+      callback(null, origin || "*");
+    },
+    credentials: true
+  }));
 
-// Connect DB
 connectDB();
 
 // Routes

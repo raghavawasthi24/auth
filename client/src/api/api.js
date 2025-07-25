@@ -10,7 +10,6 @@ export const LoginAPI = async (data) => {
   
       const result = await response.json();
   
-      // Handle errors
       if (!response.ok) {
         return {
           success: false,
@@ -49,10 +48,8 @@ export const RegisterAPI = async (data) => {
       body: JSON.stringify(data),
     });
 
-    // Parse JSON
     const result = await response.json();
 
-    // Check for success or failure
     if (!response.ok) {
       return {
         success: false,
@@ -84,10 +81,8 @@ export const VerifyOtpAPI = async (data) => {
         body: JSON.stringify(data),
       });
   
-      // Parse JSON response
       const result = await response.json();
   
-      // Handle error cases
       if (!response.ok) {
         return {
           success: false,
