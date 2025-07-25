@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors'); // <-- ADD THIS
 require('dotenv').config();
 
 const connectDB = require('./config/db');
@@ -9,6 +10,12 @@ const app = express();
 
 // Middleware
 app.use(bodyParser.json());
+
+// CORS Middleware
+app.use(cors({
+  origin: 'http://localhost:5173', // React frontend URL
+  credentials: true
+}));
 
 // Connect DB
 connectDB();

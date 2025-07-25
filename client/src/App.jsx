@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LoginCard from "../components/login-page";
-import RegisterCard from "../components/register-page";
-import VerifyOtpCard from "../components/verify-otp";
-import Dashboard from "../components/dashboard";
-import ProtectedRoute from "../ProtectedRoute";
+import LoginCard from "./components/login-page";
+import RegisterCard from "./components/register-page";
+import VerifyOtpCard from "./components/verify-otp";
+import Dashboard from "./components/dashboard";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   return (
