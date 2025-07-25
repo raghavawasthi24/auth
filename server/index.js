@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 
 // CORS Middleware
 app.use(cors({
-  origin: 'http://localhost:5173', // React frontend URL
+  origin: 'https://auth-bice-nu.vercel.app/', // React frontend URL
   credentials: true
 }));
 
