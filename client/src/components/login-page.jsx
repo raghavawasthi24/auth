@@ -5,6 +5,7 @@ import { LoginAPI } from "../api/api";
 
 const LoginCard = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -21,6 +22,7 @@ const LoginCard = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
 
     const res = await LoginAPI(formData);
 
@@ -29,6 +31,7 @@ const LoginCard = () => {
     } else {
       alert(res.error);
     }
+    setLoading(false);
   };
 
   const fields = [
@@ -91,8 +94,9 @@ const LoginCard = () => {
           <button
             type="submit"
             className="w-full bg-cyan-300 text-black py-2 font-semibold rounded-md hover:bg-cyan-400 transition"
+            disabled={loading}
           >
-            LOGIN
+            {loading? "Logging..." : "Log In"}
           </button>
 
           <p className="text-sm text-gray-400 pt-2">
